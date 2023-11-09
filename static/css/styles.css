@@ -1,0 +1,202 @@
+body {
+    border: 1px solid #000;
+    padding: 0%;
+    font-family: Helvetica;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+}
+
+h1 {
+    margin: 0;
+    margin-left: 45%;
+}
+ul{
+    padding : 5%
+}
+
+.header-links {
+    text-align: right;
+    margin-right: 1%;
+}
+
+.header-links a{
+    margin: 5px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.login{
+    font-size: larger;
+    text-align: center;
+    text-emphasis-color: black;
+}
+
+.login button{
+    padding: 10px;
+    border-radius: 5px;
+    font-size: larger;
+}
+
+.login input {
+    padding: 10px;
+    display: block; 
+    margin-bottom: 10px;
+}
+
+.register{
+    padding: 10px;
+    border-radius: 5px;
+    font-size: larger;
+}
+
+.signup-login-block{
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid #000;
+    padding: 1%;
+    border-top: 0px;
+    height: 90%;
+}
+
+.signup-block{
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid #000;
+    padding: 1%;
+    border-top: 0px;
+}
+
+.flow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    padding: 1%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.flow ul{
+    width: 100%;
+    padding: 1%;
+}
+
+.review-button {
+    justify-content: space-evenly;
+    display: flex;
+    padding: 2%;
+}
+
+.follow-menu{
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 1%;
+}
+
+.follow-add{
+    display: block;
+    padding: 5%;
+}
+
+.follow-add form{
+    display: flex;
+}
+
+.follow-add input{
+    width: 100%;
+    padding: 1%;
+    text-align: center;
+    margin-right: 1%;
+    font-size: larger;
+}
+
+.follow-add button {
+    border-radius: 5px;
+    width: 20%;
+}
+
+.followed,
+.followers {
+    border: 1px solid #000;
+    font-size: larger;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 1%;
+    justify-content:space-between;
+}
+
+.followers {
+    padding: 1%;
+    justify-content:space-between;
+}
+
+.followed a{
+    border-left: 1px solid #000;
+    text-align: right;
+    padding: 1%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.ticket-form{
+    text-align: center;
+    border: 1px solid #000;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.ticket-form label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.ticket-form input,
+.ticket-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: large;
+}
+
+.ticket-form button {
+    padding: 1%;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+.ticket-details {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ticket-details h2 {
+    margin-top: 2%;
+}
+
+.user {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 1%;
+}
+
+.time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1%;
+}

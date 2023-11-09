@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Détail de la critique : {{ review.headline }}</h1>
+<p>Rating: {{ review.rating }}</p>
+<p>{{ review.body }}</p>
+{% endblock content %}

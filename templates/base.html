@@ -1,0 +1,22 @@
+<html>
+    
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <title>litrevu</title>
+    </head>
+    <body>
+        <div class="header">
+        <h1>LITReview</h1>
+            <span class="header-links">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'flow' %}">Flux</a>
+                    <a href="{% url 'user_posts' %}">Posts</a>
+                    <a href="{% url 'subscriptions' %}">Abonnements</a>
+                    <a href="{% url 'logout' %}">Se déconnecter</a>
+                {% endif %}
+            </span>
+    </div>
+        {% block content %}{% endblock content %}
+    </body>
+</html>

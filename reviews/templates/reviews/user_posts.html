@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>Posts de {{ user.username }}</h2>
+
+        <ul>
+            {% for review in user_reviews %}
+                <li>{{ review }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for ticket in user_tickets %}
+                <li>{{ ticket }}</li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}
