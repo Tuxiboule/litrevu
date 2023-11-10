@@ -1,18 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="user_posts">
+    <h2>Vos posts</h2>
 
-    <h2>Posts de {{ user.username }}</h2>
-
-        <ul>
+        <ul class="review-details">
             {% for review in user_reviews %}
-                <li>{{ review }}</li>
+                <div>{{ review }}</div>
+                <div class="review-manage-button">
+                    <a href="">
+                        <button class = >Modifier</button>
+                    </a>
+                    <a href="">
+                        <button class = >Supprimer</button>
+                    </a>
+                </div>
             {% endfor %}
         </ul>
 
-        <ul>
+        <ul class="ticket-details">
             {% for ticket in user_tickets %}
-                <li>{{ ticket }}</li>
+                <div>{{ ticket }}</div>
+                <div class="ticket-manage-button">
+                    <a href="">
+                        <button class = >Modifier</button>
+                    </a>
+                    <a href="">
+                        <button class = >Supprimer</button>
+                    </a>
+                </div>
             {% endfor %}
         </ul>
-
+</div>
 {% endblock %}

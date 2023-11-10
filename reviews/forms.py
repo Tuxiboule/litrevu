@@ -6,6 +6,9 @@ class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = UserFollows
         fields = ['follow_user']
+        widgets = {
+                    'follow_user': forms.TextInput(attrs={'placeholder': 'Entrez le nom d\'utilisateur'}),
+                    }
 
 
 class TicketCreateForm(forms.ModelForm):

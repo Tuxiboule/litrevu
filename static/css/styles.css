@@ -85,9 +85,14 @@ ul{
     margin-right: 10%;
 }
 
+
 .flow ul{
     width: 100%;
     padding: 1%;
+}
+
+.flow-title{
+    text-align: center;
 }
 
 .review-button {
@@ -99,7 +104,6 @@ ul{
 .follow-menu{
     justify-content: space-evenly;
     text-align: center;
-    padding: 1%;
 }
 
 .follow-add{
@@ -175,7 +179,8 @@ ul{
 
 }
 
-.ticket-details {
+.ticket-details,
+.review-details {
     border: 1px solid black;
     padding: 10px;
     margin-bottom: 10px;
@@ -199,4 +204,22 @@ ul{
     top: 0;
     right: 0;
     margin-right: 1%;
+}
+
+.user_posts {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.user_posts .ticket-details,
+.review-details {
+    border: 1px solid black;
+}
+
+.user_posts h2 {
+    text-align: center;
 }

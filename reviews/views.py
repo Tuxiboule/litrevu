@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from .models import Ticket, Review, UserFollows
 from .forms import SubscriptionForm, TicketCreateForm
 from django.urls import reverse_lazy
+from authentication.models import User
 
 
 @login_required
@@ -26,14 +27,19 @@ def subscription_view(request):
 
     form = SubscriptionForm(request.POST or None)
 
-    if request.method == 'POST' and form.is_valid():
-        followee = form.cleaned_data['follow_user']
+    for object in User.objects.all():
+        if form['follow_user'].value() == object.username:
+            choice = object
+
+    if request.method == 'POST' and form['follow_user'].value() == choice.username:
+        followee = choice
         if not UserFollows.objects.filter(user=user, follow_user=followee).exists():
             UserFollows.objects.create(user=user, follow_user=followee)
 
     return render(request, 'reviews/subscriptions.html', {'subscriptions': subscriptions, 'followers': followers, 'form': form})
 
 
+@login_required
 def user_posts(request):
     user = request.user
     user_tickets = Ticket.objects.filter(user=user)
