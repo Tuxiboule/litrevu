@@ -1,6 +1,5 @@
 from django import forms
-from .models import UserFollows, Ticket, Review
-from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import UserFollows, Ticket, Review, UserBlock
 
 
 class SubscriptionForm(forms.ModelForm):
@@ -12,6 +11,15 @@ class SubscriptionForm(forms.ModelForm):
                     }
 
 
+class BlockForm(forms.ModelForm):
+    class Meta:
+        model = UserBlock
+        fields = ['block_user']
+        widgets = {
+                    'block_user': forms.TextInput(attrs={'placeholder': 'Entrez le nom d\'utilisateur'}),
+        }
+
+
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Ticket
@@ -20,10 +28,10 @@ class TicketCreateForm(forms.ModelForm):
 
 
 class ReviewCreateForm(forms.ModelForm):
+
     ticket_title = forms.CharField(max_length=255, label='Titre')
     ticket_description = forms.CharField(widget=forms.Textarea, label='Description')
     ticket_image = forms.ImageField(label='Image')
-
 
     class Meta:
         model = Review

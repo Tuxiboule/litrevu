@@ -28,3 +28,11 @@ class UserFollows(models.Model):
 
     def unfollow(self):
         self.delete()
+
+
+class UserBlock(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_blocks')
+    block_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocked_by')
+
+    def unblock(self):
+        self.delete()

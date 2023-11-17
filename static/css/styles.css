@@ -123,8 +123,7 @@ ul{
 .review-button {
     justify-content: space-evenly;
     display: flex;
-    padding: 2%;
-    padding-bottom: 0px;
+    padding: 1%;
 }
 
 .review-button button {
@@ -136,18 +135,22 @@ ul{
 .follow-menu{
     justify-content: space-evenly;
     text-align: center;
+    padding: 10%;
+    padding-top: 0px;
+}
+.follow-menu button{
+    font-size: larger;
 }
 
-.follow-add{
+.follow-add, .block-add{
     display: block;
-    padding: 5%;
 }
 
-.follow-add form{
+.follow-add form, .block-add form{
     display: flex;
 }
 
-.follow-add input{
+.follow-add input, .block-add input{
     width: 100%;
     padding: 1%;
     text-align: center;
@@ -155,13 +158,14 @@ ul{
     font-size: larger;
 }
 
-.follow-add button {
+.follow-add button , .block-add button{
     border-radius: 5px;
     width: 20%;
 }
 
 .followed,
-.followers {
+.followers,
+.blocked {
     border: 1px solid #000;
     font-size: larger;
     text-align: left;
@@ -176,7 +180,8 @@ ul{
     justify-content:space-between;
 }
 
-.followed a{
+.followed a,
+.blocked a{
     border-left: 1px solid #000;
     text-align: right;
     padding: 1%;
@@ -315,4 +320,16 @@ ul{
 
 .user_posts h2 {
     text-align: center;
+}
+
+
+textarea{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large; 
+}
+
+.messages{
+    text-align: center;
+    font-size: 30px;
+    padding: 0px;
 }

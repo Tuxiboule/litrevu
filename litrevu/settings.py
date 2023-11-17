@@ -133,5 +133,5 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'flow'
 LOGOUT_REDIRECT_URL = LOGIN_URL
 
-MEDIA_URL = '/' 
+MEDIA_URL = '/'
 MEDIA_ROOT = str(BASE_DIR.joinpath(''))

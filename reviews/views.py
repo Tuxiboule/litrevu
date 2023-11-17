@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView
-from .models import Ticket, Review, UserFollows
-from .forms import SubscriptionForm, TicketCreateForm, ReviewCreateForm
+from django.contrib import messages
+from django.views.generic import CreateView
+from .models import Ticket, Review, UserFollows, UserBlock
+from .forms import SubscriptionForm, TicketCreateForm, ReviewCreateForm, BlockForm
 from django.urls import reverse_lazy
 from authentication.models import User
 
 from operator import attrgetter
-
 
 
 @login_required
@@ -24,6 +24,8 @@ def prepare_flow(user):
     posters = [user]
 
     follows = list(UserFollows.objects.filter(user=user))
+    blocked = UserBlock.objects.filter(user=user)
+
     for follow in follows:
         posters.append(follow.follow_user)
 
@@ -31,15 +33,24 @@ def prepare_flow(user):
     for poster in posters:
         poster_reviews = Review.objects.filter(user=poster)
         poster_tickets = Ticket.objects.filter(user=poster)
-        reviews_list += poster_reviews
-        tickets_list += poster_tickets
+
+        if not any(blocked_user.block_user == poster for blocked_user in blocked):
+            reviews_list += poster_reviews
+            tickets_list += poster_tickets
 
     items = tickets_list + reviews_list
+
+    for review in Review.objects.all():
+        if review.ticket.user == user and review.user != user:
+            items.append(review)
+
     for item in items:
         item.item_type = 'Review' if isinstance(item, Review) else 'Ticket'
+
     sorted_items = sorted(items, key=attrgetter("time_created"), reverse=True)
 
     return sorted_items
+
 
 @login_required
 def subscription_view(request):
@@ -51,22 +62,40 @@ def subscription_view(request):
     # Utilisateurs qui suivent l'utilisateur actif
     followers = UserFollows.objects.filter(follow_user=user)
 
-    form = SubscriptionForm(request.POST or None)
+    blocked = UserBlock.objects.filter(user=user)
+
+    form_block = BlockForm(request.POST or None)
+    form_sub = SubscriptionForm(request.POST or None)
 
     for object in User.objects.all():
-        if form['follow_user'].value() == object.username:
+        if form_sub['follow_user'].value() == object.username:
             choice = object
 
+    for object in User.objects.all():
+        if form_block['block_user'].value() == object.username:
+            block_choice = object
+
     try:
-        if request.method == 'POST' and form['follow_user'].value() == choice.username:
+        if request.method == 'POST' and form_sub['follow_user'].value() == choice.username:
             followee = choice
             if not UserFollows.objects.filter(user=user, follow_user=followee).exists():
                 UserFollows.objects.create(user=user, follow_user=followee)
-
     except Exception as e:
         print(e)
 
-    return render(request, 'reviews/subscriptions.html', {'subscriptions': subscriptions, 'followers': followers, 'form': form})
+    try:
+        if request.method == 'POST' and form_block['block_user'].value() == block_choice.username:
+            blockee = block_choice
+
+            if not UserBlock.objects.filter(user=user, block_user=blockee).exists():
+                print("ajout block")
+                UserBlock.objects.create(user=user, block_user=blockee)
+    except Exception as e:
+        print(e)
+
+    return render(request, 'reviews/subscriptions.html', 
+                  {'subscriptions': subscriptions, 'followers': followers, 'blocked': blocked,
+                   'form_sub': form_sub, 'form_block': form_block})
 
 
 @login_required
@@ -75,7 +104,7 @@ def user_posts(request):
     user_tickets = list(Ticket.objects.filter(user=user))
     user_reviews = list(Review.objects.filter(user=user))
     items = user_tickets + user_reviews
-    
+
     for item in items:
         item.item_type = 'Review' if isinstance(item, Review) else 'Ticket'
     sorted_items = sorted(items, key=attrgetter("time_created"), reverse=True)
@@ -92,6 +121,18 @@ def unfollow(request, follow_id):
         user_follow.unfollow()
 
     return redirect('subscriptions')
+
+
+@login_required
+def unblock(request, block_id):
+
+    user_block = UserBlock.objects.get(id=block_id)
+
+    if user_block.user == request.user:
+        user_block.unblock()
+
+    return redirect('subscriptions')
+
 
 @login_required
 def delete_item(request, item_id):
@@ -114,8 +155,9 @@ def delete_item(request, item_id):
         return redirect('user_posts')
     else:
         return redirect('user_posts')
-    
 
+
+@login_required
 def ticket_update(request, ticket_id):
 
     ticket = Ticket.objects.get(id=ticket_id)
@@ -130,6 +172,7 @@ def ticket_update(request, ticket_id):
     return render(request, 'reviews/ticket_update.html', {'form': form, 'ticket': ticket})
 
 
+@login_required
 def review_update(request, review_id):
     review = Review.objects.get(id=review_id)
 
@@ -140,7 +183,6 @@ def review_update(request, review_id):
         'ticket_image': review.ticket.image,
         # Ajoutez d'autres champs du ticket au besoin
     }
-    print(request.method)
     if request.method == 'POST':
         form = ReviewCreateForm(request.POST, instance=review, initial=ticket_data)
         if form.is_valid():
@@ -152,9 +194,38 @@ def review_update(request, review_id):
     return render(request, 'reviews/review_update.html', {'form': form, 'review': review})
 
 
+@login_required
+def ticket_answer(request, ticket_id):
+
+    ticket = Ticket.objects.get(id=ticket_id)
+
+    try:
+        review = Review.objects.get(ticket=ticket)
+        messages.success(request, f'Il y déjà une critique pour le ticket : {ticket.title}.')
+        return redirect('flow')
+    except Review.DoesNotExist:
+        pass
+
+    ticket_data = {
+        'ticket_title': ticket.title,
+        'ticket_description': ticket.description,
+        'ticket_image': ticket.image,
+    }
+
+    if request.method == 'POST':
+        form = ReviewCreateForm(request.POST, initial=ticket_data)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            form.save()
+            return redirect('flow')
+    else:
+        form = ReviewCreateForm(initial=ticket_data)
+
+    return render(request, 'reviews/review_form.html', {'form': form, 'ticket': ticket})
 
 
-# Création d'un ticket (nécessite une authentification)
 class TicketCreate(CreateView, LoginRequiredMixin):
     model = Ticket
     template_name = 'reviews/ticket_form.html'
@@ -200,7 +271,7 @@ class ReviewCreate(LoginRequiredMixin, CreateView):
         form.cleaned_data['review'] = review
         # Rediriger l'utilisateur vers une autre page (vous pouvez personnaliser cela)
         return super().form_valid(form)
-    
+
     def get_success_url(self):
         # Spécifiez l'URL vers laquelle rediriger l'utilisateur après la création réussie
         return reverse_lazy('flow')

@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <div class="review-button">
         <a href="{% url 'create-ticket' %}">
-            <button class="">Créer un ticket</button>
+            <button >Créer un ticket</button>
         </a>
         <a href="{% url 'create-review' %}">
-            <button class="">Créer une critique</button>
+            <button >Créer une critique</button>
         </a>
     </div>
+
 
     <div class="flow">
         <ul>
@@ -25,7 +27,7 @@
                             <div class="review-ticket-details">
                                 <p>Ticket - {{item.ticket.user}}</p>
                                 <p>{{item.ticket.title}}</p>
-                                <img src="{{ item.ticket.image.url }}" alt="{{ item..ticket.title }}" width="200">
+                                <img src="{{ item.ticket.image.url }}" alt="{{ item.ticket.title }}" width="200">
                             </div>
                         </div>
 
@@ -40,8 +42,8 @@
                             <img src="{{ item.image.url }}" alt="{{ item.title }}" width="200">
                         </div>
                         <div class="flow-manage-button">
-                            <a href="">
-                                <button class = >Créer une critique</button>
+                            <a href="{% url 'ticket_answer' item.id %}">
+                                <button >Répondre une critique</button>
                             </a>
                         </div>
                     {% endif %}

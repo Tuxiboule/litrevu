@@ -16,12 +16,6 @@ urlpatterns = [
         redirect_authenticated_user=True),
         name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('change-password/', PasswordChangeView.as_view(
-        template_name='authentication/password_change_form.html'),
-        name='password_change'),
-    path('change-password-done/', PasswordChangeDoneView.as_view(
-        template_name='authentication/password_change_done.html'),
-        name='password_change_done'),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('flow/', login_required(reviews.views.flow), name='flow'),
 
@@ -33,11 +27,10 @@ urlpatterns = [
     path('user_posts', reviews.views.user_posts, name='user_posts'),
     path('subscriptions/', reviews.views.subscription_view, name='subscriptions'),
     path('unfollow/<int:follow_id>/', reviews.views.unfollow, name='unfollow'),
+    path('unblock/<int:block_id>/', reviews.views.unblock, name='unblock'),
     path('ticket-update/<int:ticket_id>/', reviews.views.ticket_update, name='ticket_update'),
     path('review-update/<int:review_id>/', reviews.views.review_update, name='review_update'),
-
-
-
+    path('ticket-answer/<int:ticket_id>/', reviews.views.ticket_answer, name='ticket_answer'),
 ]
 
 if settings.DEBUG:
