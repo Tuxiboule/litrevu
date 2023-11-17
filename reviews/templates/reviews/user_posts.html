@@ -1,34 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="user_posts">
+    <ul>
     <h2>Vos posts</h2>
-
-        <ul class="review-details">
-            {% for review in user_reviews %}
-                <div>{{ review }}</div>
-                <div class="review-manage-button">
-                    <a href="">
-                        <button class = >Modifier</button>
+    {% for item in items %}
+        {% if item.item_type == 'Review' %}
+            <div class="review-details">
+                <div class="ticket-misc">
+                    <div>{{item.user}} a publié une critique</div>
+                    <div>{{item.time_created}}</div>
+                </div>
+                <p class="item-title">{{item.headline}} - {{item.rating}}</p>
+                <p>{{item.body|linebreaks}}</p>
+                <div class="review-ticket-details">
+                    <p>Ticket - {{item.ticket.user}}</p>
+                    <p>{{item.ticket.title}}</p>
+                    <img src="{{ item.ticket.image.url }}" alt="{{ item..ticket.title }}" width="200">
+                </div>
+                <div class="flow-manage-button">
+                    <a href="review-update/{{item.id}}/">
+                        <button >Modifier</button>
                     </a>
-                    <a href="">
-                        <button class = >Supprimer</button>
+                    <a href="delete_item/{{item.id}}/">
+                        <button >Supprimer</button>
                     </a>
                 </div>
-            {% endfor %}
-        </ul>
+            </div>
 
-        <ul class="ticket-details">
-            {% for ticket in user_tickets %}
-                <div>{{ ticket }}</div>
-                <div class="ticket-manage-button">
-                    <a href="">
-                        <button class = >Modifier</button>
+        {% elif item.item_type == 'Ticket' %}
+            <div class="ticket-details">
+                <div class="ticket-misc">
+                    <div>{{item.user}} a demandé une critique</div>
+                    <div>{{item.time_created}}</div>
+                </div>
+                <p class="item-title">{{item.title}}</p>
+                <p>{{item.description|linebreaks}}</p>
+                <img src="{{ item.image.url }}" alt="{{ item.title }}" width="200">
+                <div class="flow-manage-button">
+                    <a href="ticket-update/{{item.id}}/" method="post">
+                        <button >Modifier</button>
                     </a>
-                    <a href="">
-                        <button class = >Supprimer</button>
+                    <a href="delete_item/{{item.id}}/">
+                        <button >Supprimer</button>
                     </a>
                 </div>
-            {% endfor %}
-        </ul>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+</ul>
 </div>
 {% endblock %}

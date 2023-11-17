@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Liste des critiques</h1>
-<ul>
-    {% for review in reviews %}
-        <li><a href="{% url 'review-detail' review.pk %}">{{ review.headline }}</a></li>
-    {% endfor %}
-</ul>
-{% endblock content %}

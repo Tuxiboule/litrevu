@@ -4,16 +4,16 @@
 ## About
 
 - LitReview is a web application that allows users to request and post book or article reviews. 
-- Users can create posts to seek reviews, read reviews from users they follow, and publish their own reviews.
+- Users can create posts to request/ask for a review, read reviews from users they follow, and publish their own reviews.
 
 
 ## Features
 
 - Tickets: Users can create Tickets to request reviews for books or articles.
-- Reviews: Users can post reviews in response to billets.
-- Combined Post Creation: Users can create a billet and a review for that billet simultaneously.
-- Feed: The feed displays billets and reviews from users the logged-in user follows, as well as their own content.
-- Following Users: Users can follow other users to see their reviews and billets.
+- Reviews: Users can post reviews in response to tickets.
+- Combined Post Creation: Users can create a ticket and a review for that ticket simultaneously.
+- Feed: The feed displays tickets and reviews from users the logged-in user follows, as well as their own content.
+- Following Users: Users can follow other users to see their reviews and tickets
 - Authentication: The site provides registration and login pages.
 
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="review-form">
-    <h2>Créer une critique</h2>
+    <h2>Modifier une critique</h2>
     <form method="post" enctype="multipart/form-data">
         <div class="review-form-ticket">
             <h3>Livre / Article</h3>
@@ -21,7 +21,7 @@
             <div>{{ form.rating }}</div>
             <p>Commentaire</p>
             <div class="review-textfield">{{ form.body}}</div>
-            <button type="submit">Créer la Critique</button>
+            <button type="submit">Valider</button>
         </div>
 
     </form>

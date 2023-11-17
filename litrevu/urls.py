@@ -26,18 +26,17 @@ urlpatterns = [
     path('flow/', login_required(reviews.views.flow), name='flow'),
 
     # Vues et URLs pour les tickets
-    path('tickets/', reviews.views.TicketList.as_view(), name='ticket-list'),
-    path('tickets/<int:pk>/', reviews.views.TicketDetail.as_view(), name='ticket-detail'),
     path('create-ticket/', reviews.views.TicketCreate.as_view(), name='create-ticket'),
-    path('user_posts', reviews.views.user_posts, name='user_posts'),
-    # Vues et URLs pour les critiques
-    path('reviews/', reviews.views.ReviewList.as_view(), name='review-list'),
-    path('reviews/<int:pk>/', reviews.views.ReviewDetail.as_view(), name='review-detail'),
     path('create-review/', reviews.views.ReviewCreate.as_view(), name='create-review'),
+    path('delete_item/<int:item_id>/', reviews.views.delete_item, name='delete_item'),
 
-    # Vue pour les abonnements
+    path('user_posts', reviews.views.user_posts, name='user_posts'),
     path('subscriptions/', reviews.views.subscription_view, name='subscriptions'),
     path('unfollow/<int:follow_id>/', reviews.views.unfollow, name='unfollow'),
+    path('ticket-update/<int:ticket_id>/', reviews.views.ticket_update, name='ticket_update'),
+    path('review-update/<int:review_id>/', reviews.views.review_update, name='review_update'),
+
+
 
 ]
 
