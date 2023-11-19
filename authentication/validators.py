@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 
 
 class ContainsLetterValidator:
+    # Letter validation for password
     def validate(self, password, user=None):
         if not any(char.isalpha() for char in password):
             raise ValidationError(
@@ -12,6 +13,7 @@ class ContainsLetterValidator:
 
 
 class ContainsNumberValidator:
+    # Number validation for password
     def validate(self, password, user=None):
         if not any(char.isdigit() for char in password):
             raise ValidationError(

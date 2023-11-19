@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+    <!-- Ticket create -->
     <div class="review-button">
         <a href="{% url 'create-ticket' %}">
             <button >Créer un ticket</button>
@@ -10,12 +10,12 @@
         </a>
     </div>
 
-
+    <!-- Posts flow -->
     <div class="flow">
         <ul>
             {% for item in items %}
                 <div class="flow-details">
-
+                    <!-- Review details -->
                     {% if item.item_type == 'Review' %}
                         <div class="review-details">
                             <div class="ticket-misc">
@@ -31,6 +31,7 @@
                             </div>
                         </div>
 
+                    <!-- Ticket details -->
                     {% elif item.item_type == 'Ticket' %}
                         <div class="ticket-details">
                             <div class="ticket-misc">

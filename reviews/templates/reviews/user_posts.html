@@ -4,6 +4,7 @@
     <ul>
     <h2>Vos posts</h2>
     {% for item in items %}
+        <!-- Review details -->
         {% if item.item_type == 'Review' %}
             <div class="review-details">
                 <div class="ticket-misc">
@@ -26,7 +27,7 @@
                     </a>
                 </div>
             </div>
-
+        <!-- Ticket details -->
         {% elif item.item_type == 'Ticket' %}
             <div class="ticket-details">
                 <div class="ticket-misc">

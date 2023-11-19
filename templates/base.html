@@ -8,7 +8,7 @@
     <body>
         
         <div class="header">
-        <h1>LITReview</h1>
+            <h1>LITReview</h1>
             <span class="header-links">
                 {% if user.is_authenticated %}
                     <a href="{% url 'flow' %}">Flux</a>
@@ -17,14 +17,15 @@
                     <a href="{% url 'logout' %}">Se déconnecter</a>
                 {% endif %}
             </span>
-    </div>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
-        {% endfor %}
-    </ul>
-    {% endif %}
-        {% block content %}{% endblock content %}
+        </div>
+        <!-- Error messages management -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+            {% block content %}{% endblock content %}
     </body>
 </html>

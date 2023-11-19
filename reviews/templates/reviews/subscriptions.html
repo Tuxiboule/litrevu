@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="follow-menu">
-
+    <!-- User actions -->>
     <div class="follow-add">
         <h2> Suivre un utilisateur</h2>
         <form method="post" >
@@ -21,7 +21,7 @@
             <button type="submit">Bloquer</button>
         </form>
     </div>
-
+        <!-- Users display -->
         <h2>Abonnements</h2>
             <div>
                 {% for subscription in subscriptions %}

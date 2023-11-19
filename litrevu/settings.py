@@ -122,6 +122,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -133,5 +134,5 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'flow'
 LOGOUT_REDIRECT_URL = LOGIN_URL
 
-MEDIA_URL = '/'
-MEDIA_ROOT = str(BASE_DIR.joinpath(''))
+MEDIA_URL = '/ressources/'
+MEDIA_ROOT = BASE_DIR / 'ressources'
