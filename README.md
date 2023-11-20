@@ -22,7 +22,9 @@
 Make sure you have installed the required libraries and set up the virtual environment by executing the following commands. 
 A `requirements.txt` file is provided for this purpose and can be used as follows:
 >python -m venv env
+>
 >env\Scripts\activate.bat
+>
 >pip install -r requirements.txt
 
 
