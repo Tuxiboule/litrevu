@@ -40,7 +40,7 @@ Next, run the Python script `manage.py` to run the server and go to http://127.0
 
 - Django Framework
 - SQLite Database
-- Front-end Development (Wireframes provided)
+- Front-end Development
 - PEP8 Guidelines
 
 ## Credits
