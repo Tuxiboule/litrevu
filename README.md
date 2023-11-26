@@ -12,7 +12,7 @@
 - Tickets: Users can create Tickets to request reviews for books or articles.
 - Reviews: Users can post reviews in response to tickets.
 - Combined Post Creation: Users can create a ticket and a review for that ticket simultaneously.
-- Flow: The flow displays tickets and reviews from users the logged-in user follows, as well as their own content.
+- Flow: The flow displays tickets and reviews from followed users, as well as their own content.
 - Following Users: Users can follow other users to see their reviews and tickets
 - Authentication: The site provides registration and login pages.
 
